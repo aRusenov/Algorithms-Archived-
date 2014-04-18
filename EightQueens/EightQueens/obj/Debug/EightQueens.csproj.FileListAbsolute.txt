@@ -1,0 +1,6 @@
+C:\Users\Jamal\Documents\GitHub\Algorithms\EightQueens\EightQueens\bin\Debug\EightQueens.exe.config
+C:\Users\Jamal\Documents\GitHub\Algorithms\EightQueens\EightQueens\bin\Debug\EightQueens.exe
+C:\Users\Jamal\Documents\GitHub\Algorithms\EightQueens\EightQueens\bin\Debug\EightQueens.pdb
+C:\Users\Jamal\Documents\GitHub\Algorithms\EightQueens\EightQueens\obj\Debug\EightQueens.csprojResolveAssemblyReference.cache
+C:\Users\Jamal\Documents\GitHub\Algorithms\EightQueens\EightQueens\obj\Debug\EightQueens.exe
+C:\Users\Jamal\Documents\GitHub\Algorithms\EightQueens\EightQueens\obj\Debug\EightQueens.pdb
