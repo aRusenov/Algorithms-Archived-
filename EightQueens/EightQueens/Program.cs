@@ -1,56 +1,82 @@
 ﻿using System;
-using System.Numerics;
+using System.Collections.Generic;
 
 namespace EightQueens
 {
     class Program
     {
-        static char[,] map;
-        static BigInteger pathCount = 0;
+        const int n = 8;
+
+        static int[,] board = new int[n, n];
+        static int QueenCount = 0;
+        static bool[] TakenRows = new bool[n];
+        static int CurrentSolution = 1;
 
         static void Main()
         {
-            ReadInput();
-            FindExit(0, 0);
-            Console.WriteLine(pathCount);
+            FindQueens(0, 0);
         }
 
-        private static void ReadInput()
+        private static void FindQueens(int row, int col)
         {
-            string[] coords = Console.ReadLine().Split(' ');
-            int n = int.Parse(coords[0]);
-            int m = int.Parse(coords[1]);
-            map = new char[n, m];
-
-            string[] food = Console.ReadLine().Split(' ');
-            int foodX = int.Parse(food[0]);
-            int foodY = int.Parse(food[1]);
-            map[foodX, foodY] = 'f';
-            map[0, 0] = 'd';
-
-            int k = int.Parse(Console.ReadLine());
-            for (int i = 0; i < k; i++)
+            for (int r = row; r < board.GetLength(0) && col < board.GetLength(1); r++)
             {
-                string[] enemy = Console.ReadLine().Split(' ');
-                int enemyX = int.Parse(enemy[0]);
-                int enemyY = int.Parse(enemy[1]);
-                map[enemyX, enemyY] = 'e';
+                if (IsOpen(r, col))
+                {
+                    board[r, col] = 1;
+                    QueenCount++;
+                    TakenRows[r] = true;
+                    if (QueenCount == n)
+                    {
+                        PrintBoard();
+                    }
+                    else
+                    {
+                        FindQueens(0, col + 1);
+                    }
+                    board[r, col] = 0;
+                    QueenCount--;
+                    TakenRows[r] = false;
+                }
             }
         }
 
-        private static void FindExit(int row, int col)
+        private static void PrintBoard()
         {
-            if (row >= map.GetLength(0) || col >= map.GetLength(1) || map[row, col] == 'e')
+            Console.WriteLine(CurrentSolution + ".");
+            CurrentSolution++;
+            for (int row = 0; row < board.GetLength(0); row++)
             {
-                return;
+                for (int col = 0; col < board.GetLength(1); col++)
+                {
+                    Console.Write("{0, 2}", board[row, col]);
+                }
+                Console.WriteLine();
             }
-            else if (map[row, col] == 'f')
+            Console.WriteLine();
+        }
+
+        static bool IsOpen(int row, int col)
+        {
+            for (int r = row - 1, c = col - 1; r >= 0 && c >= 0; r--, c--)
             {
-                pathCount++;
-                return;
+                if (board[r, c] == 1)
+                {
+                    return false;
+                }
             }
-            FindExit(row + 1, col);
-            FindExit(row, col + 1);
+            for (int r = row + 1, c = col - 1; r < board.GetLength(0) && c >= 0; r++, c--)
+            {
+                if (board[r, c] == 1)
+                {
+                    return false;
+                }
+            }
+            if (TakenRows[row])
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
